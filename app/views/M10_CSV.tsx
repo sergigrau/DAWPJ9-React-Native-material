@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Papa from 'papaparse';
 import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
+
 /**
  * Classe que hereta de Component i que implementa un component
  * que llegeix un csv de l'app
@@ -44,10 +45,9 @@ const estils = StyleSheet.create({
     color: 'red',
     textAlign: 'center',
     marginTop: 20,
-  }
+  },
 });
 
-// Dades CSV d'exemple en cas que no es pugui carregar el fitxer
 const csvExemple = `nom,edat,ciutat
 Pere,27,Barcelona
 Maria,32,Girona
@@ -55,34 +55,32 @@ Joan,45,Tarragona
 Montse,29,Lleida
 `;
 
-export class M10_CSV extends React.Component {
-  
-  constructor(props) {
+interface State {
+  data: Record<string, string>[];
+  error: string | null;
+  carregant: boolean;
+}
+
+export class M10_CSV extends React.Component<object, State> {
+  constructor(props: object) {
     super(props);
     this.state = {
       data: [],
       error: null,
-      carregant: true
+      carregant: true,
     };
   }
 
   async componentDidMount() {
     try {
       try {
-        // Load the CSV file as an asset
         const asset = Asset.fromModule(require('../../assets/dades.csv'));
         await asset.downloadAsync();
-        
-        // Read the file content
-        const fileContent = await FileSystem.readAsStringAsync(asset.localUri);
-        
-        // Process the CSV content
+
+        const fileContent = await FileSystem.readAsStringAsync(asset.localUri!);
         this.processarCSV(fileContent);
-        
       } catch (error) {
         console.log('Error al carregar el fitxer CSV:', error);
-        
-        // If we can't load the file, use the example data
         this.processarCSV(csvExemple);
       }
     } catch (error) {
@@ -90,40 +88,37 @@ export class M10_CSV extends React.Component {
       this.setState({ error: 'Error al processar les dades', carregant: false });
     }
   }
-  
-  processarCSV(contingutCSV) {
-    Papa.parse(contingutCSV, {
-      header: true, // Per interpretar la primera fila com a capçaleres
+
+  processarCSV(contingutCSV: string): void {
+    Papa.parse<Record<string, string>>(contingutCSV, {
+      header: true,
       complete: (results) => {
         console.log('Dades processades:', results.data);
-        this.setState({ 
-          data: results.data, 
+        this.setState({
+          data: results.data,
           carregant: false,
-          error: results.errors.length > 0 ? 'Hi ha errors en el format CSV' : null
+          error: results.errors.length > 0 ? 'Hi ha errors en el format CSV' : null,
         });
       },
-      error: (error) => {
+      error: (error: Error) => {
         console.error('Error al analitzar CSV:', error);
         this.setState({ error: 'Error al analitzar CSV', carregant: false });
-      }
+      },
     });
   }
 
   render() {
     const { data, error, carregant } = this.state;
-    
-    // Obtenir les capçaleres des de la primera fila de dades
     const capçaleres = data.length > 0 ? Object.keys(data[0]) : [];
-    
+
     return (
       <ScrollView style={estils.contenidor}>
         {carregant && <Text>Carregant dades...</Text>}
-        
+
         {error && <Text style={estils.missatgeError}>{error}</Text>}
-        
+
         {!carregant && !error && (
           <>
-            {/* Capçalera de la taula */}
             <View style={[estils.fila, estils.capçalera]}>
               {capçaleres.map((capçalera, index) => (
                 <View key={index} style={estils.columna}>
@@ -131,8 +126,7 @@ export class M10_CSV extends React.Component {
                 </View>
               ))}
             </View>
-            
-            {/* Files de dades */}
+
             {data.map((fila, indexFila) => (
               <View key={indexFila} style={estils.fila}>
                 {capçaleres.map((capçalera, indexColumna) => (

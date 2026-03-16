@@ -25,7 +25,7 @@ const estils = StyleSheet.create({
   peu: {
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: '#FA0'
+    backgroundColor: '#FA0',
   },
   taula: {
     borderWidth: 1,
@@ -73,8 +73,20 @@ const estils = StyleSheet.create({
   },
 });
 
-export class M09_Sqlite extends React.Component {
-  constructor(props) {
+interface Alumne {
+  id: number;
+  nom: string;
+  nota: number;
+}
+
+interface State {
+  alumnes: Alumne[];
+  carregant: boolean;
+  error: string | null;
+}
+
+export class M09_Sqlite extends React.Component<object, State> {
+  constructor(props: object) {
     super(props);
     this.state = {
       alumnes: [],
@@ -84,33 +96,37 @@ export class M09_Sqlite extends React.Component {
   }
 
   componentDidMount() {
-    SQLite.openDatabaseAsync('daw2').then(db => {
-      db.execAsync(`
+    SQLite.openDatabaseAsync('daw2')
+      .then((db) => {
+        db.execAsync(`
           PRAGMA journal_mode = WAL;
           CREATE TABLE IF NOT EXISTS alumnes (id INTEGER PRIMARY KEY NOT NULL, nom TEXT NOT NULL, nota INTEGER);
           INSERT OR IGNORE INTO alumnes (id, nom, nota) VALUES (1,'sergi', 8);
           INSERT OR IGNORE INTO alumnes (id, nom, nota) VALUES (2,'joan', 6);
-          `).then(() => {
-        console.log('taula creada i dades afegides');
-        db.getAllAsync('SELECT * FROM alumnes').then((resultat) => {
-          this.setState({ alumnes: resultat, carregant: false });
-          
-          // També mostrem per consola
-          for (const alumne of resultat) {
-            console.log(alumne.id, alumne.nom, alumne.nota);
-          }
-        }).catch(error => { 
-          console.log(error);
-          this.setState({ error: 'Error al consultar dades', carregant: false });
-        });
-      }).catch(error => { 
+        `)
+          .then(() => {
+            console.log('taula creada i dades afegides');
+            db.getAllAsync<Alumne>('SELECT * FROM alumnes')
+              .then((resultat) => {
+                this.setState({ alumnes: resultat, carregant: false });
+                for (const alumne of resultat) {
+                  console.log(alumne.id, alumne.nom, alumne.nota);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                this.setState({ error: 'Error al consultar dades', carregant: false });
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            this.setState({ error: 'Error al crear taula', carregant: false });
+          });
+      })
+      .catch((error) => {
         console.log(error);
-        this.setState({ error: 'Error al crear taula', carregant: false });
+        this.setState({ error: 'Error al obrir base de dades', carregant: false });
       });
-    }).catch(error => { 
-      console.log(error);
-      this.setState({ error: 'Error al obrir base de dades', carregant: false });
-    });
   }
 
   render() {
@@ -121,22 +137,20 @@ export class M09_Sqlite extends React.Component {
         <View style={estils.peu}>
           <Text style={estils.textPeu}>SQLITE</Text>
         </View>
-        
+
         {carregant && <Text>Carregant dades...</Text>}
-        
+
         {error && <Text style={{ color: 'red' }}>{error}</Text>}
-        
+
         {!carregant && !error && (
           <ScrollView>
             <View style={estils.taula}>
-              {/* Capçalera de la taula */}
               <View style={estils.capcalera}>
                 <Text style={[estils.columnaId, estils.textCapcalera]}>ID</Text>
                 <Text style={[estils.columnaNom, estils.textCapcalera]}>Nom</Text>
                 <Text style={[estils.columnaNota, estils.textCapcalera]}>Nota</Text>
               </View>
-              
-              {/* Files de la taula */}
+
               {alumnes.length > 0 ? (
                 alumnes.map((alumne) => (
                   <View key={alumne.id} style={estils.fila}>

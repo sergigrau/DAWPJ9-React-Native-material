@@ -2,13 +2,14 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import {M06_Home} from './app/views/M06_Home';
-import {M06_Detalls} from './app/views/M06_Detalls';
-import {M07_Camera} from './app/views/M07_Camera';
-import {M08_Mapes} from './app/views/M08_Mapes';
-import {M09_Sqlite} from './app/views/M09_Sqlite';
+import { M06_Home } from './app/views/M06_Home';
+import { M06_Detalls } from './app/views/M06_Detalls';
+import { M07_Camera } from './app/views/M07_Camera';
+import { M08_Mapes } from './app/views/M08_Mapes';
+import { M09_Sqlite } from './app/views/M09_Sqlite';
 import { M10_CSV } from './app/views/M10_CSV';
 import { M11_Suma } from './app/views/M11_Suma';
+
 /**
  * Modificacions al component principal d'entrada de React
  * per incloure encaminaments, però no components
@@ -16,7 +17,17 @@ import { M11_Suma } from './app/views/M11_Suma';
  * @author sergi.grau@fje.edu
  */
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Detall: { nom?: string };
+  Camera: undefined;
+  Mapes: undefined;
+  SQLite: undefined;
+  CSV: undefined;
+  Suma: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 function App() {
   return (

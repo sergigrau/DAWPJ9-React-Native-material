@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, Text, View, ActivityIndicator } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { LocationObject } from 'expo-location';
 
 /**
  * Classe que hereta de Component i que implementa un component
@@ -25,11 +26,17 @@ const estils = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
-export class M08_Mapes extends React.Component {
-  constructor(props) {
+interface State {
+  ubicacio: LocationObject | null;
+  missatgeError: string | null;
+  estaCarregant: boolean;
+}
+
+export class M08_Mapes extends React.Component<object, State> {
+  constructor(props: object) {
     super(props);
     this.state = {
       ubicacio: null,
@@ -40,29 +47,21 @@ export class M08_Mapes extends React.Component {
 
   async componentDidMount() {
     try {
-      // Sol·licitar permisos d'ubicació
       const { status } = await Location.requestForegroundPermissionsAsync();
-      
+
       if (status !== 'granted') {
         this.setState({
           missatgeError: 'Es requereix permís per accedir a la ubicació',
-          estaCarregant: false
+          estaCarregant: false,
         });
         return;
       }
-      
-      // Obtenir l'ubicació actual
+
       const ubicacio = await Location.getCurrentPositionAsync({});
-      this.setState({ 
-        ubicacio, 
-        estaCarregant: false 
-      });
+      this.setState({ ubicacio, estaCarregant: false });
     } catch (error) {
       console.error('Error en obtenir la ubicació:', error);
-      this.setState({ 
-        missatgeError: 'Error en obtenir la ubicació', 
-        estaCarregant: false 
-      });
+      this.setState({ missatgeError: 'Error en obtenir la ubicació', estaCarregant: false });
     }
   }
 
@@ -89,7 +88,7 @@ export class M08_Mapes extends React.Component {
     return (
       <View style={estils.contenidor}>
         {ubicacio ? (
-          <MapView 
+          <MapView
             style={estils.estilMapa}
             initialRegion={{
               latitude: ubicacio.coords.latitude,

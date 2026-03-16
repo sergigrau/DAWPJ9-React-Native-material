@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, Alert, TouchableOpacity } from 'react-native';
 
 /**
  * Classe que hereta de Component i que implementa esdeveniments
@@ -7,12 +7,10 @@ import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native';
  * @author sergi.grau@fje.edu
  */
 
-
 export class M03_Esdeveniments extends React.Component {
-  mostrarMissatge = () => {
+  mostrarMissatge = (): void => {
     Alert.alert('Has polsat un botó');
-    //si ho proveu en web caldrà posar alert('missatge')
-  }
+  };
 
   render() {
     return (
@@ -20,9 +18,7 @@ export class M03_Esdeveniments extends React.Component {
         <TouchableOpacity onPress={this.mostrarMissatge}>
           <Text>Polsar aquest botó</Text>
         </TouchableOpacity>
-        
       </View>
     );
-
   }
 }

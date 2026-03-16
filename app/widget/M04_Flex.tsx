@@ -11,38 +11,36 @@ import { M02_Estils } from './M02_Estils';
 const estils = StyleSheet.create({
   contenidor: {
     flex: 1,
-    backgroundColor: '#0f0'
+    backgroundColor: '#0f0',
   },
   filaSeleccionada: {
-    flex:2,
-    flexDirection:'row',
-    justifyContent:'center',
-    borderBottomColor:'red',
-    borderBottomWidth:1,
-    alignContent:'center'
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderBottomColor: 'red',
+    borderBottomWidth: 1,
+    alignContent: 'center',
   },
   fila: {
-    flex:1,
-    flexDirection:'row',
-    justifyContent:'center',
-    borderBottomColor:'red',
-    alignContent:'center',
-    borderBottomWidth:1,
-
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderBottomColor: 'red',
+    alignContent: 'center',
+    borderBottomWidth: 1,
   },
-  boto:{
-    height:'50%',
-    width:'50%',
-    alignContent:'center',
-    justifyContent:'center',
-
-  }
+  boto: {
+    height: '50%',
+    width: '50%',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
 });
+
 export class M04_Flex extends React.Component {
-  mostrarMissatge = () => {
+  mostrarMissatge = (): void => {
     Alert.alert('Has polsat un botó');
-    //si ho proveu en web caldrà posar alert('missatge')
-  }
+  };
 
   render() {
     return (
@@ -64,6 +62,5 @@ export class M04_Flex extends React.Component {
         </View>
       </View>
     );
-
   }
 }

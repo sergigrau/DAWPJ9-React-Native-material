@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {M00_Home} from './app/views/M00_Home';
+import { M00_Home } from './app/views/M00_Home';
 
 /**
  * Modificacions al component principal d'entrada de React
@@ -9,14 +9,12 @@ import {M00_Home} from './app/views/M00_Home';
  * @author sergi.grau@fje.edu
  */
 
-
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>DAW2</Text>
-      <M00_Home></M00_Home>
+      <M00_Home />
     </View>
-    
   );
 }
 
@@ -28,4 +26,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
