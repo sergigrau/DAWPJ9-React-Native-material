@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Papa from 'papaparse';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { Asset } from 'expo-asset';
 
 /**
@@ -76,8 +76,11 @@ export class M10_CSV extends React.Component<object, State> {
       try {
         const asset = Asset.fromModule(require('../../assets/dades.csv'));
         await asset.downloadAsync();
+        const uri = asset.localUri ?? asset.uri;
+        if (!uri) throw new Error('No s\'ha obtingut URI de l\'asset CSV: ' + JSON.stringify(asset));
 
-        const fileContent = await FileSystem.readAsStringAsync(asset.localUri!);
+        const fileContent = await FileSystem.readAsStringAsync(uri);
+        if (!fileContent) throw new Error('Fitxer CSV buit llegit des de: ' + uri);
         this.processarCSV(fileContent);
       } catch (error) {
         console.log('Error al carregar el fitxer CSV:', error);
@@ -93,9 +96,12 @@ export class M10_CSV extends React.Component<object, State> {
     Papa.parse<Record<string, string>>(contingutCSV, {
       header: true,
       complete: (results) => {
-        console.log('Dades processades:', results.data);
+        const filtered = results.data.filter((row) =>
+          Object.values(row).some((v) => v !== null && v !== undefined && String(v).trim() !== '')
+        );
+        console.log('Dades processades:', results.data, '-> filtrades:', filtered);
         this.setState({
-          data: results.data,
+          data: filtered,
           carregant: false,
           error: results.errors.length > 0 ? 'Hi ha errors en el format CSV' : null,
         });
