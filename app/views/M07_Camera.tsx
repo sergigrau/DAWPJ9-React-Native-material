@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Button, Image, StyleSheet } from 'react-native';
-import { CameraView, CameraType, Camera } from 'expo-camera';
+import * as ExpoCamera from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
 /**
@@ -45,11 +45,11 @@ interface State {
   hasCameraPermission: boolean | null;
   hasMediaLibPermission: boolean | null;
   imageUri: string | null;
-  facing: CameraType;
+  facing: string;
 }
 
 export class M07_Camera extends React.Component<object, State> {
-  private cameraRef = React.createRef<CameraView>();
+  private cameraRef = React.createRef<any>();
 
   constructor(props: object) {
     super(props);
@@ -63,26 +63,15 @@ export class M07_Camera extends React.Component<object, State> {
 
   async componentDidMount() {
     try {
-      const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
+      const { status: cameraStatus } = await ExpoCamera.Camera.requestCameraPermissionsAsync();
       this.setState({ hasCameraPermission: cameraStatus === 'granted' });
-
-      const { status: mediaLibStatus } = await MediaLibrary.requestPermissionsAsync();
-      this.setState({ hasMediaLibPermission: mediaLibStatus === 'granted' });
-
-      if (mediaLibStatus === 'granted') {
-        try {
-          const { assets } = await MediaLibrary.getAssetsAsync({ first: 1 });
-          if (assets.length > 0) {
-            this.setState({ imageUri: assets[0].uri });
-          }
-        } catch (error) {
-          console.log('Error carregant imatges:', error);
-        }
-      }
     } catch (error) {
-      console.log('Error en componentDidMount:', error);
+      console.log('Error demanant permisos de càmera:', error);
       this.setState({ hasCameraPermission: false });
     }
+
+    // No sol·licitem permisos de MediaLibrary a l'inici per evitar problemes a Expo Go.
+    // Sol·licitarem permisos quan l'usuari faci una foto i vulgui desar-la.
   }
 
   ferFoto = async (): Promise<void> => {
@@ -93,14 +82,24 @@ export class M07_Camera extends React.Component<object, State> {
         console.log('Foto feta:', photo.uri);
         this.setState({ imageUri: photo.uri });
 
-        if (this.state.hasMediaLibPermission) {
-          const asset = await MediaLibrary.createAssetAsync(photo.uri);
-          try {
-            await MediaLibrary.createAlbumAsync('DAW2', asset, false);
-            console.log("Imatge desada a l'àlbum DAW2");
-          } catch (albumError) {
-            console.log("Error creant l'àlbum, desant a la galeria:", albumError);
+        try {
+          const { status } = await MediaLibrary.requestPermissionsAsync();
+          if (status === 'granted') {
+            const asset = await MediaLibrary.createAssetAsync(photo.uri);
+            try {
+              await MediaLibrary.createAlbumAsync('DAW2', asset, false);
+              console.log("Imatge desada a l'àlbum DAW2");
+            } catch (albumError) {
+              console.log("Error creant l'àlbum, desant a la galeria:", albumError);
+            }
+            this.setState({ hasMediaLibPermission: true });
+          } else {
+            console.log('Permisos MediaLibrary denegats o no disponibles');
+            this.setState({ hasMediaLibPermission: false });
           }
+        } catch (mlError) {
+          console.log('Error demanant permisos/guardant imatge:', mlError);
+          this.setState({ hasMediaLibPermission: false });
         }
       } catch (error) {
         console.log('Error fent la foto:', error);
@@ -131,7 +130,7 @@ export class M07_Camera extends React.Component<object, State> {
 
     return (
       <View style={styles.container}>
-        <CameraView style={styles.camera} facing={facing} ref={this.cameraRef} />
+        <ExpoCamera.CameraView style={styles.camera} facing={facing as any} ref={this.cameraRef} />
 
         <View style={styles.controls}>
           <Button title="Fes una foto" onPress={this.ferFoto} />
