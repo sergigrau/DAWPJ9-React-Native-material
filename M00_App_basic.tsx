@@ -5,7 +5,7 @@ import { M00_Home } from './app/views/M00_Home';
 /**
  * Modificacions al component principal d'entrada de React
  * sense incloure encaminaments
- * @version 1.0 28.03.2020
+ * @version 1.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

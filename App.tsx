@@ -13,7 +13,7 @@ import { M11_Suma } from './app/views/M11_Suma';
 /**
  * Modificacions al component principal d'entrada de React
  * per incloure encaminaments, però no components
- * @version 2.0 02.05.2024
+ * @version 2.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

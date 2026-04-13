@@ -8,7 +8,7 @@ import { M04_Flex } from '../widget/M04_Flex';
 /**
  * Classe que hereta de Component i que implementa un component
  * independent en l'app. És un component bàsic sense estils
- * @version 1.0 23.03.2020
+ * @version 1.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

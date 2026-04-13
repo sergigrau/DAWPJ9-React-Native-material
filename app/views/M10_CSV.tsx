@@ -7,7 +7,7 @@ import { Asset } from 'expo-asset';
 /**
  * Classe que hereta de Component i que implementa un component
  * que llegeix un csv de l'app
- * @version 1.0 4.05.2024
+ * @version 1.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

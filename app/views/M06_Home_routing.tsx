@@ -6,7 +6,7 @@ import type { StackScreenProps } from '@react-navigation/stack';
  * Classe que hereta de Component i que implementa un component
  * independent en l'app. És un component bàsic sense estils
  * Fa servir routing
- * @version 1.0 23.03.2020
+ * @version 1.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

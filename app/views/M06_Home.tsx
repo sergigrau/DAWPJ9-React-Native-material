@@ -7,7 +7,7 @@ import { BotoPersonalitzat } from '../widget/BotoPesonalitzat';
  * Classe que hereta de Component i que implementa un component
  * independent en l'app. És un component bàsic sense estils
  * Fa servir routing
- * @version 2.0 23.03.2025
+ * @version 2.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

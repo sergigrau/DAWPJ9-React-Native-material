@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, ViewStyle } from 'react-native';
 
 /**
  * Classe que te un Component BotoPersonalitzat
- * @version 2.0 12.04.2025
+ * @version 2.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

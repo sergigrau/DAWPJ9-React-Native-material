@@ -5,7 +5,7 @@ import { BotoPersonalitzat } from '../widget/BotoPesonalitzat';
 /**
  * Classe que hereta de Component i que treballa amb el
  * component que suma dos nombres
- * @version 1.1 12.04.2025
+ * @version 1.1 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

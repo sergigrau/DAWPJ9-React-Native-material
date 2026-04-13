@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 /**
  * Classe que hereta de Component i que treballa amb estils
- * @version 1.0 23.03.2020
+ * @version 1.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

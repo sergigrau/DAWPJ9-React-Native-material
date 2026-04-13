@@ -8,7 +8,7 @@ import { RouteProp } from '@react-navigation/native';
 /**
  * Modificacions al component principal d'entrada de React
  * per incloure encaminaments, però no components
- * @version 1.0 28.03.2020
+ * @version 1.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

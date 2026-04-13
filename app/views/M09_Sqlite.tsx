@@ -5,7 +5,7 @@ import * as SQLite from 'expo-sqlite';
 /**
  * Classe que hereta de Component i que treballa amb el
  * component de SQLite. Les dades es mostren en una taula
- * @version 1.1 12.04.2025
+ * @version 1.1 13.04.2026
  * @author sergi.grau@fje.edu
  */
 

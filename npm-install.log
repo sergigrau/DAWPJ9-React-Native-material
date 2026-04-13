@@ -1,0 +1,64 @@
+npm verbose cli /Users/imac/.nvm/versions/node/v24.14.0/bin/node /Users/imac/.nvm/versions/node/v24.14.0/bin/npm
+npm info using npm@11.9.0
+npm info using node@v24.14.0
+npm verbose title npm install
+npm verbose argv "install" "--loglevel" "verbose"
+npm verbose logfile logs-max:10 dir:/Users/imac/.npm/_logs/2026-04-13T11_12_31_602Z-
+npm verbose logfile /Users/imac/.npm/_logs/2026-04-13T11_12_31_602Z-debug-0.log
+npm http fetch GET 200 https://registry.npmjs.org/@react-navigation%2fnative 149ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react 138ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-native 168ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact 65ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact-native 702ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo 95ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@expo%2fdom-webview 70ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/@expo%2fmetro-runtime 61ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-dom 655ms (cache miss)
+npm http cache https://registry.npmjs.org/react 22ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/react-native-webview 108ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-asset 225ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-camera 216ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/react-native-web 51ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-file-system 52ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-location 202ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-media-library 500ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-sqlite 43ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/expo-status-bar 44ms (cache miss)
+npm http fetch GET 200 https://registry.npmjs.org/papaparse 41ms (cache miss)
+npm verbose stack Error: unable to resolve dependency tree
+npm verbose stack     at #failPeerConflict (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1402:25)
+npm verbose stack     at #loadPeerSet (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1368:33)
+npm verbose stack     at async #buildDepStep (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:916:11)
+npm verbose stack     at async Arborist.buildIdealTree (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:170:7)
+npm verbose stack     at async Promise.all (index 1)
+npm verbose stack     at async Arborist.reify (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:110:5)
+npm verbose stack     at async Install.exec (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/lib/commands/install.js:151:5)
+npm verbose stack     at async Npm.exec (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/lib/npm.js:208:9)
+npm verbose stack     at async module.exports (/Users/imac/.nvm/versions/node/v24.14.0/lib/node_modules/npm/lib/cli/entry.js:67:5)
+npm error code ERESOLVE
+npm error ERESOLVE unable to resolve dependency tree
+npm error
+npm error While resolving: pj10p@1.0.0
+npm error Found: react@18.3.1
+npm error node_modules/react
+npm error   react@"18.3.1" from the root project
+npm error
+npm error Could not resolve dependency:
+npm error peer react@"^19.1.0" from react-dom@19.1.0
+npm error node_modules/react-dom
+npm error   react-dom@"19.1.0" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error /Users/imac/.npm/_logs/2026-04-13T11_12_31_602Z-eresolve-report.txt
+npm verbose cwd /Volumes/ASSIGNATURES/DAWPJ9-React-Native-material
+npm verbose os Darwin 24.6.0
+npm verbose node v24.14.0
+npm verbose npm  v11.9.0
+npm verbose exit 1
+npm verbose code 1
+npm error A complete log of this run can be found in: /Users/imac/.npm/_logs/2026-04-13T11_12_31_602Z-debug-0.log

@@ -6,7 +6,7 @@ import * as MediaLibrary from 'expo-media-library';
 /**
  * Classe que hereta de Component i que implementa un component
  * per a la càmera. Utilitza expo-camera v16+.
- * @version 3.0 2025
+ * @version 3.0 13.04.2026
  * @author sergi.grau@fje.edu
  */
 
