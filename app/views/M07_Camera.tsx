@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button, Image, StyleSheet } from 'react-native';
+import { Text, View, Button, Image, StyleSheet, Platform } from 'react-native';
 import * as ExpoCamera from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: 'rgba(0,0,0,0.2)',
     padding: 10,
+    paddingBottom: Platform.OS === 'android' ? 28 : 34,
   },
   preview: {
     padding: 10,
